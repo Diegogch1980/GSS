@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo Soluciona Salud · Gestión, Auditoría y Asesoría en Salud y Discapacidad</title>
+  <meta name="description" content="Somos un equipo especializado en gestión administrativa, asesoría contable, categorizaciones y auditorías para el sector salud y discapacidad. Buenos Aires, Argentina." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ──────────────────────────────────────────────── */
+    :root {
+      --blue:    #5A8EC4;
+      --blue-dk: #3B6EA0;
+      --blue-lt: #EBF3FC;
+      --green:   #4CAF82;
+      --green-dk:#3A8F69;
+      --dark:    #1C2B3A;
+      --mid:     #4A5568;
+      --light:   #F4F8FD;
+      --white:   #FFFFFF;
+      --radius:  14px;
+      --shadow:  0 8px 32px rgba(91,142,196,.14);
+      --font:    'Inter', sans-serif;
+      --serif:   'Lora', Georgia, serif;
+    }
+
+    /* ── RESET ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); color: var(--dark); background: var(--white); line-height: 1.65; overflow-x: hidden; }
+    img  { max-width: 100%; display: block; }
+    a    { text-decoration: none; color: inherit; }
+
+    /* ── UTILITY ─────────────────────────────────────────────── */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 88px 0; }
+    .section--light { background: var(--light); }
+    .badge {
+      display: inline-block;
+      background: rgba(91,142,196,.12);
+      color: var(--blue-dk);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .badge--green {
+      background: rgba(76,175,130,.12);
+      color: var(--green-dk);
+    }
+    h2.section-title {
+      font-size: clamp(1.65rem, 3vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    p.section-lead {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 580px;
+      margin-bottom: 52px;
+      line-height: 1.75;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 100px;
+      font-family: var(--font);
+      font-size: .92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      border: none;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.16); }
+    .btn--primary  { background: var(--blue); color: var(--white); }
+    .btn--primary:hover { background: var(--blue-dk); }
+    .btn--outline  { background: transparent; color: var(--blue); border: 2px solid var(--blue); }
+    .btn--green    { background: var(--green); color: var(--white); }
+    .btn--green:hover { background: var(--green-dk); }
+
+    /* ── NAV ─────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(91,142,196,.1);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .nav__logo {
+      display: flex;
+      align-items: center;
+    }
+    .nav__logo img {
+      height: 170px;
+      width: auto;
+      display: block;
+      filter: brightness(0.6) saturate(1.3);
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: .87rem;
+      font-weight: 600;
+      color: var(--mid);
+      transition: color .2s;
+    }
+    .nav__links a:hover { color: var(--blue); }
+    .nav__cta { display: flex; gap: 10px; flex-shrink: 0; }
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      background: none;
+      border: none;
+    }
+    .nav__burger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: .3s;
+    }
+    .nav__drawer {
+      display: none;
+      flex-direction: column;
+      background: var(--white);
+      border-top: 1px solid rgba(91,142,196,.1);
+      padding: 16px 20px 20px;
+      gap: 4px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.08);
+    }
+    .nav__drawer.is-open { display: flex; }
+    .nav__drawer a {
+      display: block;
+      padding: 10px 12px;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--mid);
+      border-radius: 10px;
+      transition: background .15s, color .15s;
+    }
+    .nav__drawer a:hover { background: var(--blue-lt); color: var(--blue); }
+    .nav__drawer-cta {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(91,142,196,.1);
+    }
+    .nav__drawer-cta .btn { flex: 1; justify-content: center; }
+
+    /* ── HERO ────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #EBF3FC 0%, #F4F8FD 50%, #EBF7F1 100%);
+      padding: 96px 0 80px;
+      overflow: hidden;
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91,142,196,.1);
+      color: var(--blue-dk);
+      font-size: .78rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+    .hero__title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -.02em;
+    }
+    .hero__title em { font-style: normal; color: var(--blue); }
+    .hero__desc {
+      font-size: 1.05rem;
+      color: var(--mid);
+      margin-bottom: 34px;
+      max-width: 480px;
+      line-height: 1.75;
+    }
+    .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero__visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .hero__stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .hero__stat {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+    }
+    .hero__stat:nth-child(1)::before { background: var(--blue); }
+    .hero__stat:nth-child(2)::before { background: var(--green); }
+    .hero__stat:nth-child(3)::before { background: var(--blue); }
+    .hero__stat:nth-child(4)::before { background: var(--green); }
+    .hero__stat-num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--blue-dk);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero__stat:nth-child(2) .hero__stat-num,
+    .hero__stat:nth-child(4) .hero__stat-num { color: var(--green-dk); }
+    .hero__stat-label {
+      font-size: .82rem;
+      color: var(--mid);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .hero__trust {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero__trust-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .hero__trust-text { font-size: .88rem; color: var(--mid); line-height: 1.5; }
+    .hero__trust-text strong { color: var(--dark); display: block; font-size: .94rem; margin-bottom: 2px; }
+    .dot-deco {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .07;
+      pointer-events: none;
+    }
+    .wave-divider { line-height: 0; }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ── DIFERENCIAL ─────────────────────────────────────────── */
+    .dif__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .dif__item {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px 26px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .dif__item:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .dif__check {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(76,175,130,.12);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green-dk);
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+    .dif__body h4 { font-size: .97rem; font-weight: 800; margin-bottom: 5px; }
+    .dif__body p  { font-size: .9rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── SERVICIOS ───────────────────────────────────────────── */
+    .services__list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .srv {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 18px rgba(0,0,0,.05);
+      overflow: hidden;
+      transition: box-shadow .25s;
+    }
+    .srv:hover { box-shadow: var(--shadow); }
+    .srv__header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 28px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .srv__icon {
+      flex-shrink: 0;
+      width: 50px; height: 50px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .srv:nth-child(1) .srv__icon { background: rgba(91,142,196,.12); }
+    .srv:nth-child(2) .srv__icon { background: rgba(76,175,130,.12); }
+    .srv:nth-child(3) .srv__icon { background: rgba(91,142,196,.12); }
+    .srv:nth-child(4) .srv__icon { background: rgba(76,175,130,.12); }
+    .srv:nth-child(5) .srv__icon { background: rgba(91,142,196,.12); }
+    .srv__title-wrap { flex: 1; }
+    .srv__title-wrap h3 { font-size: 1.03rem; font-weight: 800; margin-bottom: 3px; }
+    .srv__title-wrap p  { font-size: .86rem; color: var(--mid); }
+    .srv__toggle {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue);
+      font-size: .85rem;
+      font-weight: 700;
+      transition: background .2s, transform .3s;
+    }
+    .srv.is-open .srv__toggle { background: var(--blue); color: var(--white); transform: rotate(45deg); }
+    .srv__body {
+      display: none;
+      padding: 0 28px 26px 96px;
+    }
+    .srv.is-open .srv__body { display: block; }
+    .srv__body ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .srv__body ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: .92rem;
+      color: var(--mid);
+      line-height: 1.55;
+    }
+    .srv__body ul li::before {
+      content: '✓';
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--white);
+      font-size: .65rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* ── EQUIPO ──────────────────────────────────────────────── */
+    .team__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+    .team__card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 30px 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      border-left: 4px solid var(--blue);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .team__card:nth-child(2n) { border-left-color: var(--green); }
+    .team__card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .team__avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--blue-lt);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 14px;
+    }
+    .team__card:nth-child(2n) .team__avatar { background: rgba(76,175,130,.12); }
+    .team__card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+    .team__card .team__role {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+    .team__card:nth-child(2n) .team__role { color: var(--green-dk); }
+    .team__card p { font-size: .88rem; color: var(--mid); line-height: 1.65; }
+
+    /* ── PROCESO ─────────────────────────────────────────────── */
+    .steps__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      position: relative;
+    }
+    .steps__grid::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(12.5% + 16px);
+      right: calc(12.5% + 16px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue) 0%, var(--green) 100%);
+      opacity: .25;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+    }
+    .step__num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--blue);
+      color: var(--blue);
+      font-size: 1.3rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 4px 16px rgba(91,142,196,.2);
+      position: relative;
+      z-index: 1;
+    }
+    .step:nth-child(4) .step__num { border-color: var(--green); color: var(--green); box-shadow: 0 4px 16px rgba(76,175,130,.2); }
+    .step h4 { font-size: .97rem; font-weight: 800; margin-bottom: 8px; }
+    .step p  { font-size: .87rem; color: var(--mid); line-height: 1.6; }
+    .step__note {
+      display: inline-block;
+      background: rgba(76,175,130,.1);
+      color: var(--green-dk);
+      font-size: .73rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-top: 8px;
+    }
+
+    /* ── CONTACTO ────────────────────────────────────────────── */
+    .contact__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .contact__info-block {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%);
+      border-radius: 24px;
+      padding: 44px 40px;
+      color: var(--white);
+    }
+    .contact__info-block h3 { font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; }
+    .contact__info-block > p { font-size: .95rem; opacity: .82; margin-bottom: 34px; line-height: 1.65; }
+    .contact__items { display: flex; flex-direction: column; gap: 22px; }
+    .contact__item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .contact__item-icon {
+      flex-shrink: 0;
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .contact__item-icon--wa { background: #25D366; }
+    .contact__item-icon--ig { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+    .contact__item-icon svg { width: 22px; height: 22px; }
+    .contact__item-body strong { display: block; font-size: .8rem; font-weight: 700; opacity: .7; margin-bottom: 2px; text-transform: uppercase; letter-spacing: .06em; }
+    .contact__item-body span  { font-size: .97rem; font-weight: 500; }
+    .contact__item-body a     { color: var(--white); font-size: .97rem; font-weight: 500; }
+    .contact__item-body a:hover { opacity: .8; }
+    .contact__form {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 38px 34px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.07);
+    }
+    .contact__form h3 { font-size: 1.18rem; font-weight: 800; margin-bottom: 6px; }
+    .contact__form > p { font-size: .88rem; color: var(--mid); margin-bottom: 24px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: .83rem; font-weight: 700; color: var(--mid); margin-bottom: 5px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #DDE4ED;
+      border-radius: 10px;
+      font-family: var(--font);
+      font-size: .93rem;
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color .2s;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-note { font-size: .78rem; color: var(--mid); margin-top: 10px; display: flex; align-items: center; gap: 6px; }
+
+    /* ── FOOTER ──────────────────────────────────────────────── */
+    .footer {
+      background: var(--dark);
+      color: rgba(255,255,255,.65);
+      padding: 56px 0 24px;
+    }
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 48px;
+    }
+    .footer__desc { font-size: .88rem; line-height: 1.7; max-width: 240px; margin-bottom: 20px; }
+    .footer__social { display: flex; gap: 10px; }
+    .footer__social a {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+      font-size: .85rem;
+    }
+    .footer__social a:hover { background: var(--blue); }
+    .footer__col h4 {
+      font-size: .8rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer__col ul a { font-size: .87rem; transition: color .2s; }
+    .footer__col ul a:hover { color: var(--blue); }
+    .footer__bottom {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .78rem;
+    }
+
+    /* ── FLOATING WA ─────────────────────────────────────────── */
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      background: #25D366;
+      color: var(--white);
+      border-radius: 100px;
+      padding: 13px 18px 13px 14px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: .86rem;
+      font-weight: 700;
+      box-shadow: 0 8px 28px rgba(37,211,102,.45);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-float:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,.55); }
+    .wa-float svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .wa-float__text { display: block; }
+
+    /* ── LOGO WATERMARK ─────────────────────────────────────── */
+    .hero__watermark {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      right: -80px;
+      top: 100%;
+      transform: translateY(-50%);
+      opacity: .055;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero__inner { position: relative; z-index: 1; }
+    .footer {
+      position: relative;
+      overflow: hidden;
+    }
+    .footer__watermark {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -40px;
+      bottom: -60px;
+      opacity: .04;
+      pointer-events: none;
+    }
+    .footer__logo-pill {
+      display: inline-block;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 6px 12px;
+      margin-bottom: 16px;
+    }
+    .footer__logo-pill img {
+      height: 170px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── REVEAL ──────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .steps__grid { grid-template-columns: repeat(2, 1fr); }
+      .steps__grid::before { display: none; }
+      .footer__inner { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__cta   { display: none; }
+      .nav__burger { display: flex; }
+
+      .section { padding: 56px 0; }
+      p.section-lead { margin-bottom: 36px; }
+
+      .hero { padding: 64px 0 52px; }
+      .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero__title { font-size: clamp(1.85rem, 7vw, 2.6rem); }
+
+      .dif__grid { grid-template-columns: 1fr; gap: 14px; }
+
+      .srv__body { padding-left: 28px; }
+
+      .team__grid { grid-template-columns: 1fr; }
+
+      .steps__grid { grid-template-columns: 1fr 1fr; }
+
+      .contact__inner { grid-template-columns: 1fr; gap: 32px; }
+      .contact__info-block { padding: 32px 28px; }
+      .contact__form { padding: 28px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer__inner { grid-template-columns: 1fr 1fr; gap: 24px; }
+
+      .wa-float__text { display: none; }
+      .wa-float { padding: 14px; border-radius: 50%; }
+    }
+
+    @media (max-width: 480px) {
+      .steps__grid { grid-template-columns: 1fr; }
+      .footer__inner { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .hero__stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="#inicio" class="nav__logo">
+          <img src="img/GSS1.png" alt="Grupo Soluciona Salud" />
+        </a>
+
+        <ul class="nav__links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#diferencial">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#proceso">Cómo trabajamos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+
+        <button class="nav__burger" aria-label="Abrir menú" id="burgerBtn">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav__drawer" id="navDrawer">
+      <a href="#inicio"       onclick="closeNav()">Inicio</a>
+      <a href="#diferencial"  onclick="closeNav()">Nosotros</a>
+      <a href="#servicios"    onclick="closeNav()">Servicios</a>
+      <a href="#equipo"       onclick="closeNav()">Equipo</a>
+      <a href="#proceso"      onclick="closeNav()">Cómo trabajamos</a>
+      <a href="#contacto"     onclick="closeNav()">Contacto</a>
+      <div class="nav__drawer-cta">
+        <a href="#contacto" class="btn btn--primary" onclick="closeNav()">Solicitar consulta</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <section class="hero" id="inicio">
+    <div class="dot-deco" style="width:360px;height:360px;background:var(--blue);top:-120px;right:-100px;"></div>
+    <div class="dot-deco" style="width:180px;height:180px;background:var(--green);bottom:-60px;left:-60px;"></div>
+    <img src="img/GSS2.png" alt="" class="hero__watermark" aria-hidden="true" />
+
+    <div class="container">
+      <div class="hero__inner">
+        <div class="hero__content">
+          <div class="hero__eyebrow">Especialistas en Salud y Discapacidad · Buenos Aires</div>
+          <h1 class="hero__title">
+            Soluciones integrales<br>para que tu<br>
+            <em>institución funcione</em>
+          </h1>
+          <p class="hero__desc">
+            Acompañamos a profesionales, instituciones y prestadores del sector salud
+            y discapacidad con gestión administrativa, asesoría contable, categorizaciones
+            y auditorías de calidad.
+          </p>
+          <div class="hero__actions">
+            <a href="#contacto" class="btn btn--primary">Solicitar consulta gratuita</a>
+            <a href="#servicios" class="btn btn--outline">Ver servicios</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__stat-grid">
+            <div class="hero__stat">
+              <div class="hero__stat-num">5</div>
+              <div class="hero__stat-label">áreas de servicio integradas</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-num">100%</div>
+              <div class="hero__stat-label">propuesta articulada y personalizada</div>
+            </div>
+            <div class="hero__stat">
+              <div class="hero__stat-num">48hs</div>
+              <div class="hero__stat-label">para recibir tu propuesta</div>
+            </div>
+          </div>
+          <div class="hero__trust">
+            <div class="hero__trust-icon">🔒</div>
+            <div class="hero__trust-text">
+              <strong>Acuerdo de confidencialidad</strong>
+              Firmamos un acuerdo de confidencialidad desde el primer contacto para garantizar el resguardo de tu información.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wave-divider" style="margin-top:72px;">
+      <svg viewBox="0 0 1440 70" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,35 C240,70 480,0 720,35 C960,70 1200,0 1440,35 L1440,70 L0,70 Z" fill="#F4F8FD"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══ DIFERENCIAL ═══════════════════════════════════════════ -->
+  <section class="section section--light" id="diferencial">
+    <div class="container">
+      <div class="badge">Quiénes somos</div>
+      <h2 class="section-title">Un equipo que entiende<br>el sector desde adentro</h2>
+      <p class="section-lead">
+        En Grupo Soluciona Salud integramos en una sola propuesta todas las áreas
+        necesarias para que el sistema funcione. Somos más que una consultora:
+        somos el soporte estratégico de tu institución.
+      </p>
+
+      <div class="dif__grid">
+        <div class="dif__item">
+          <div class="dif__check">✓</div>
+          <div class="dif__body">
+            <h4>Hablamos el mismo idioma</h4>
+            <p>Entendemos el sector en profundidad. Conocemos las lógicas de profesionales, instituciones y financiadores del sistema de salud y discapacidad.</p>
+          </div>
+        </div>
+        <div class="dif__item">
+          <div class="dif__check">✓</div>
+          <div class="dif__body">
+            <h4>Propuesta articulada, no servicios aislados</h4>
+            <p>Integramos administración, contabilidad, normativa y auditoría en una solución cohesiva y eficaz, adaptada a cada cliente.</p>
+          </div>
+        </div>
+        <div class="dif__item">
+          <div class="dif__check">✓</div>
+          <div class="dif__body">
+            <h4>Planificación y mejora continua</h4>
+            <p>No solo resolvemos urgencias: apostamos a la anticipación, la organización estratégica y el crecimiento sostenido de cada institución.</p>
+          </div>
+        </div>
+        <div class="dif__item">
+          <div class="dif__check">✓</div>
+          <div class="dif__body">
+            <h4>Soporte constante y personalizado</h4>
+            <p>Acompañamos cada etapa con seguimiento cercano y respuesta ágil, adaptándonos siempre a la realidad y necesidades de cada cliente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background:var(--light);">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,60 L0,60 Z" fill="white"/>
+    </svg>
+  </div>
+
+  <!-- ══ SERVICIOS ═════════════════════════════════════════════ -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="badge">Nuestros servicios</div>
+      <h2 class="section-title">Todo lo que necesitás,<br>en una sola propuesta</h2>
+      <p class="section-lead">
+        Cinco áreas de servicio integradas para cubrir cada aspecto de la gestión
+        de tu institución o práctica profesional en el sector salud y discapacidad.
+      </p>
+
+      <div class="services__list">
+
+        <div class="srv">
+          <div class="srv__header" onclick="toggleSrv(this)">
+            <div class="srv__icon">📋</div>
+            <div class="srv__title-wrap">
+              <h3>Gestión Administrativa Externa</h3>
+              <p>Delegá la carga administrativa y concentrarte en la atención</p>
+            </div>
+            <div class="srv__toggle">+</div>
+          </div>
+          <div class="srv__body">
+            <ul>
+              <li>Confección de presupuestos y gestión de autorizaciones de prestaciones</li>
+              <li>Facturación mensual de servicios prestados, con documentación respaldatoria</li>
+              <li>Presentación ante organismos y gestión de reclamos contables/administrativos</li>
+              <li>Manejo integral de cuentas corrientes, seguimiento de pagos y comunicación con financiadores</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="srv">
+          <div class="srv__header" onclick="toggleSrv(this)">
+            <div class="srv__icon">📊</div>
+            <div class="srv__title-wrap">
+              <h3>Asesoría Contable Especializada en Salud</h3>
+              <p>Servicio contable adaptado al sector, con foco en control, orden y proyección</p>
+            </div>
+            <div class="srv__toggle">+</div>
+          </div>
+          <div class="srv__body">
+            <ul>
+              <li>Diseño de planes contables específicos para prestadores</li>
+              <li>Liquidación y presentación de impuestos (IVA, Ganancias, Ingresos Brutos, SUSS)</li>
+              <li>Constitución y regularización societaria (SRL, SA, Asociaciones Civiles)</li>
+              <li>Liquidación de sueldos y cargas sociales (Convenio Sanidad 108/75)</li>
+              <li>Auditoría económico-financiera de instituciones</li>
+              <li>Tableros de control y KPIs financieros: costos por paciente, rentabilidad por servicio, flujo de fondos proyectado</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="srv">
+          <div class="srv__header" onclick="toggleSrv(this)">
+            <div class="srv__icon">🏛️</div>
+            <div class="srv__title-wrap">
+              <h3>Categorizaciones y Habilitaciones</h3>
+              <p>Acompañamiento integral ante organismos de control</p>
+            </div>
+            <div class="srv__toggle">+</div>
+          </div>
+          <div class="srv__body">
+            <ul>
+              <li>Acompañamiento en categorizaciones ante la Agencia Nacional de Discapacidad (ANDIS) en todas sus modalidades prestacionales</li>
+              <li>Tramitación de habilitaciones provinciales y municipales</li>
+              <li>Preparación y presentación de documentación contable, administrativa y edilicia requerida por organismos de control</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="srv">
+          <div class="srv__header" onclick="toggleSrv(this)">
+            <div class="srv__icon">🔍</div>
+            <div class="srv__title-wrap">
+              <h3>Auditorías Internas</h3>
+              <p>Conocé en profundidad cómo funciona tu institución</p>
+            </div>
+            <div class="srv__toggle">+</div>
+          </div>
+          <div class="srv__body">
+            <ul>
+              <li>Evaluación de procesos administrativos, contables y terapéuticos</li>
+              <li>Relevamiento edilicio, accesibilidad y normativa vigente</li>
+              <li>Informes con hallazgos, riesgos y planes de mejora</li>
+              <li>Acompañamiento en la implementación de recomendaciones</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="srv">
+          <div class="srv__header" onclick="toggleSrv(this)">
+            <div class="srv__icon">🏥</div>
+            <div class="srv__title-wrap">
+              <h3>Auditorías Externas para Obras Sociales y Prepagas</h3>
+              <p>Control independiente para garantizar calidad y cumplimiento normativo</p>
+            </div>
+            <div class="srv__toggle">+</div>
+          </div>
+          <div class="srv__body">
+            <ul>
+              <li>Revisión integral de áreas terapéutica, administrativa, edilicia y de procesos internos</li>
+              <li>Evaluación de ingresos y continuidad de prestaciones por afiliado</li>
+              <li>Seguimiento mensual con familias, asegurando satisfacción y necesidades cubiertas</li>
+              <li>Supervisión y orientación al equipo terapéutico</li>
+              <li>Informes trimestrales con recomendaciones y acciones de mejora</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,0 720,60 1080,30 C1260,15 1380,40 1440,30 L1440,60 L0,60 Z" fill="#F4F8FD"/>
+    </svg>
+  </div>
+
+  <!-- ══ EQUIPO ═════════════════════════════════════════════════ -->
+  <section class="section section--light" id="equipo">
+    <div class="container">
+      <div class="badge badge--green">Nuestro equipo</div>
+      <h2 class="section-title">Profesionales especializados,<br>visión multidisciplinaria</h2>
+      <p class="section-lead">
+        Combinamos formación en administración, derecho, psicopedagogía, terapia ocupacional,
+        recursos humanos y contabilidad especializada en salud.
+      </p>
+
+      <div class="team__grid">
+        <div class="team__card">
+          <div class="team__avatar">👩‍💼</div>
+          <h3>Estefanía Benavidez</h3>
+          <div class="team__role">Directora · Gestión Administrativa</div>
+          <p>Especialista en Gestión Administrativa, Salud y Discapacidad con más de 15 años de experiencia en planificación institucional, categorización de servicios y liderazgo de equipos multidisciplinarios. Su enfoque integra visión estratégica y operativa asegurando eficiencia y cumplimiento normativo.</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar">👩‍🏫</div>
+          <h3>Tamara Pérez</h3>
+          <div class="team__role">Psicopedagoga · Auditoría y Gestión</div>
+          <p>Psicopedagoga con formación en administración y recursos humanos. Especialista en gestión administrativa y auditoría de prestaciones en discapacidad, con más de 7 años de experiencia en consultoría, coordinación de equipos multidisciplinarios y asesoramiento institucional.</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar">👩‍⚕️</div>
+          <h3>Lic. María Soledad Carnevale</h3>
+          <div class="team__role">Lic. Terapia Ocupacional · Asesoría SAIE</div>
+          <p>Licenciada en Terapia Ocupacional con más de 15 años de experiencia en ámbitos clínicos, educativos y comunitarios. Especialista en Gestión de Servicios para la Discapacidad, con más de 10 años de trayectoria en coordinación de equipos y conducción de instituciones SAIE.</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar">📊</div>
+          <h3>Estudio Contable Asociado</h3>
+          <div class="team__role">Asesoría Contable · KPIs y Finanzas</div>
+          <p>Equipo especializado en instituciones de salud y discapacidad, con amplia experiencia en análisis de datos, gestión de recursos y planificación financiera. Se destacan por combinar cumplimiento normativo con diseño de indicadores de gestión y optimización de costos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wave-divider" style="background:var(--light);">
+    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,60 L0,60 Z" fill="white"/>
+    </svg>
+  </div>
+
+  <!-- ══ PROCESO ════════════════════════════════════════════════ -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="badge">Cómo trabajamos</div>
+      <h2 class="section-title">Un proceso claro<br>y transparente</h2>
+      <p class="section-lead">
+        Desde el primer contacto hasta el acompañamiento continuo,
+        cada etapa está diseñada para que confíes en el proceso.
+      </p>
+
+      <div class="steps__grid">
+        <div class="step">
+          <div class="step__num">1</div>
+          <h4>Primera reunión virtual</h4>
+          <p>Nos reunimos para conocer tu contexto, necesidades y objetivos. Sin compromiso y sin costo.</p>
+        </div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <h4>Propuesta personalizada</h4>
+          <p>En 48 horas hábiles te enviamos una propuesta detallada y adaptada a tu realidad, con presupuesto incluido.</p>
+          <span class="step__note">En 48 hs hábiles</span>
+        </div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <h4>Inicio formal + confidencialidad</h4>
+          <p>Una vez aprobada la propuesta, firmamos un acuerdo de confidencialidad y comenzamos formalmente.</p>
+          <span class="step__note">Acuerdo de confidencialidad</span>
+        </div>
+        <div class="step">
+          <div class="step__num">4</div>
+          <h4>Seguimiento y soporte continuo</h4>
+          <p>Acompañamos cada etapa del proceso con seguimiento cercano y soporte técnico personalizado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONTACTO ═══════════════════════════════════════════════ -->
+  <section class="section section--light" id="contacto">
+    <div class="container">
+      <div class="badge">Contacto</div>
+      <h2 class="section-title">¿Hablamos?</h2>
+      <p class="section-lead">
+        Completá el formulario o escribinos directamente. Te respondemos a la brevedad.
+      </p>
+
+      <div class="contact__inner">
+        <div class="contact__info-block">
+          <h3>Estamos para ayudarte</h3>
+          <p>Contanos tu situación y te orientamos sobre qué servicio se adapta mejor a tus necesidades.</p>
+          <div class="contact__items">
+            <div class="contact__item">
+              <div class="contact__item-icon contact__item-icon--wa">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+              </div>
+              <div class="contact__item-body">
+                <strong>Teléfono / WhatsApp</strong>
+                <a href="https://wa.me/5491164631451">+54 11 6463-1451</a>
+              </div>
+            </div>
+            <div class="contact__item">
+              <div class="contact__item-icon">✉️</div>
+              <div class="contact__item-body">
+                <strong>Correo electrónico</strong>
+                <a href="mailto:info@gruposolucionasalud.com.ar">info@gruposolucionasalud.com.ar</a>
+              </div>
+            </div>
+            <div class="contact__item">
+              <div class="contact__item-icon contact__item-icon--ig">
+                <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                </svg>
+              </div>
+              <div class="contact__item-body">
+                <strong>Instagram</strong>
+                <a href="https://instagram.com/grupo.soluciona.salud" target="_blank">@grupo.soluciona.salud</a>
+              </div>
+            </div>
+            <div class="contact__item">
+              <div class="contact__item-icon">🌐</div>
+              <div class="contact__item-body">
+                <strong>Sitio web</strong>
+                <span>www.gruposolucionasalud.com.ar</span>
+              </div>
+            </div>
+            <div class="contact__item">
+              <div class="contact__item-icon">📍</div>
+              <div class="contact__item-body">
+                <strong>Ubicación</strong>
+                <span>Buenos Aires, Argentina</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact__form">
+          <h3>Solicitá tu consulta</h3>
+          <p>Completá el formulario y te respondemos en menos de 24 hs hábiles.</p>
+          <form onsubmit="handleForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre completo *</label>
+                <input type="text" placeholder="Tu nombre" required />
+              </div>
+              <div class="form-group">
+                <label>Teléfono / WhatsApp *</label>
+                <input type="tel" placeholder="11 xxxx-xxxx" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" placeholder="tu@email.com" />
+            </div>
+            <div class="form-group">
+              <label>Tipo de institución / perfil</label>
+              <select>
+                <option value="">Seleccioná una opción…</option>
+                <option>Profesional independiente</option>
+                <option>Centro de rehabilitación / SAIE</option>
+                <option>Institución educativa</option>
+                <option>Obra social / prepaga</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Servicio de interés</label>
+              <select>
+                <option value="">Seleccioná un servicio…</option>
+                <option>Gestión Administrativa Externa</option>
+                <option>Asesoría Contable</option>
+                <option>Categorizaciones y Habilitaciones</option>
+                <option>Auditoría Interna</option>
+                <option>Auditoría Externa (Obras Sociales)</option>
+                <option>No sé / necesito orientación</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Contanos tu situación</label>
+              <textarea placeholder="Describí brevemente en qué podemos ayudarte…"></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;padding:14px;">
+              Enviar consulta por WhatsApp →
+            </button>
+            <p class="form-note">🔒 Tu información es confidencial y nunca es compartida con terceros.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <img src="img/GSS2.png" alt="" class="footer__watermark" aria-hidden="true" />
+    <div class="container">
+      <div class="footer__inner">
+        <div>
+          <div class="footer__logo-pill">
+            <img src="img/GSS1.png" alt="Grupo Soluciona Salud" />
+          </div>
+          <p class="footer__desc">
+            Equipo especializado en el sector salud y discapacidad.
+            Soluciones integrales, actualizadas y eficaces para profesionales
+            e instituciones de Buenos Aires.
+          </p>
+          <div class="footer__social">
+            <a href="https://instagram.com/grupo.soluciona.salud" target="_blank" title="Instagram" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="white" width="17" height="17">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/5491164631451" target="_blank" title="WhatsApp" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="white" width="17" height="17">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#servicios">Gestión Administrativa</a></li>
+            <li><a href="#servicios">Asesoría Contable</a></li>
+            <li><a href="#servicios">Categorizaciones</a></li>
+            <li><a href="#servicios">Auditorías Internas</a></li>
+            <li><a href="#servicios">Auditorías Externas</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#diferencial">Quiénes somos</a></li>
+            <li><a href="#equipo">Equipo</a></li>
+            <li><a href="#proceso">Cómo trabajamos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/5491164631451">11 6463-1451</a></li>
+            <li><a href="mailto:info@gruposolucionasalud.com.ar">info@gruposolucionasalud.com.ar</a></li>
+            <li><a href="https://instagram.com/grupo.soluciona.salud" target="_blank">@grupo.soluciona.salud</a></li>
+            <li><a href="#contacto">Solicitar consulta</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 Grupo Soluciona Salud · Todos los derechos reservados</span>
+        <span>Buenos Aires, Argentina</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ WHATSAPP FLOTANTE ══════════════════════════════════════ -->
+  <a class="wa-float" href="https://wa.me/5491164631451?text=Hola%2C%20quisiera%20consultar%20sobre%20los%20servicios%20de%20Grupo%20Soluciona%20Salud" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span class="wa-float__text">Escribinos por WhatsApp</span>
+  </a>
+
+  <script>
+    // Mobile nav
+    const burgerBtn = document.getElementById('burgerBtn');
+    const navDrawer = document.getElementById('navDrawer');
+    burgerBtn.addEventListener('click', () => navDrawer.classList.toggle('is-open'));
+    function closeNav() { navDrawer.classList.remove('is-open'); }
+
+    // Service accordion
+    function toggleSrv(header) {
+      const card = header.closest('.srv');
+      const isOpen = card.classList.contains('is-open');
+      document.querySelectorAll('.srv.is-open').forEach(s => s.classList.remove('is-open'));
+      if (!isOpen) card.classList.add('is-open');
+    }
+
+    // Contact form → WhatsApp
+    function handleForm(e) {
+      e.preventDefault();
+      const f       = e.target;
+      const name    = f.querySelector('input[type="text"]').value;
+      const phone   = f.querySelector('input[type="tel"]').value;
+      const email   = f.querySelector('input[type="email"]').value || '(no indicado)';
+      const inst    = f.querySelectorAll('select')[0].value || 'no indicado';
+      const service = f.querySelectorAll('select')[1].value || 'no indicado';
+      const msg     = f.querySelector('textarea').value || '(sin mensaje)';
+      const text = encodeURIComponent(
+        `Hola! Me contacto desde la web.\n` +
+        `Nombre: ${name}\nTeléfono: ${phone}\nEmail: ${email}\n` +
+        `Institución/perfil: ${inst}\nServicio de interés: ${service}\n` +
+        `Consulta: ${msg}`
+      );
+      window.open(`https://wa.me/5491164631451?text=${text}`, '_blank');
+    }
+
+    // Nav active highlight
+    const sections   = document.querySelectorAll('section[id]');
+    const navAnchors = document.querySelectorAll('.nav__links a');
+    const ioNav = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.style.color = '');
+          const active = document.querySelector(`.nav__links a[href="#${entry.target.id}"]`);
+          if (active) active.style.color = 'var(--blue)';
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(s => ioNav.observe(s));
+
+    // Scroll reveal for cards
+    const revealEls = document.querySelectorAll(
+      '.dif__item, .srv, .team__card, .step, .hero__stat, .hero__trust'
+    );
+    revealEls.forEach(el => {
+      el.classList.add('reveal');
+      const siblings = [...el.parentElement.querySelectorAll('.reveal')];
+      el.style.transitionDelay = `${siblings.indexOf(el) * 80}ms`;
+    });
+    const ioReveal = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          ioReveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => ioReveal.observe(el));
+  </script>
+
+</body>
+</html>

@@ -784,19 +784,15 @@
     }
     .srv.is-open .srv__toggle { background: var(--blue); color: var(--white); transform: rotate(45deg); }
     .srv__body {
-      display: grid;
-      grid-template-rows: 0fr;
-      flex: 1;
-      transition: grid-template-rows .45s ease;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .45s ease;
     }
-    .srv.is-open .srv__body { grid-template-rows: 1fr; }
     .srv__body ul {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      overflow: hidden;
-      min-height: 0;
       padding: 18px 24px 24px;
       border-top: 1px solid #EEF2F7;
     }
@@ -2334,10 +2330,11 @@
         return;
       }
 
-      const openCards = [...list.querySelectorAll('.srv.is-open')];
-      openCards.forEach(card => card.classList.remove('is-open'));
+      const openBodies = [...list.querySelectorAll('.srv.is-open .srv__body')];
+      const prevHeights = openBodies.map(b => b.style.maxHeight);
+      openBodies.forEach(b => { b.style.maxHeight = '0px'; });
       layout.style.setProperty('--services-image-height', `${list.offsetHeight}px`);
-      openCards.forEach(card => card.classList.add('is-open'));
+      openBodies.forEach((b, i) => { b.style.maxHeight = prevHeights[i]; });
     }
 
     window.addEventListener('load', setServicesImageHeight);
@@ -2406,19 +2403,31 @@
     });
 
     // Service accordion
+    function openSrv(card) {
+      const body = card.querySelector('.srv__body');
+      card.classList.add('is-open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+
+    function closeSrv(card) {
+      const body = card.querySelector('.srv__body');
+      card.classList.remove('is-open');
+      body.style.maxHeight = '0px';
+    }
+
     function toggleSrv(header) {
       const card = header.closest('.srv');
       const isOpen = card.classList.contains('is-open');
-      document.querySelectorAll('.srv.is-open').forEach(s => s.classList.remove('is-open'));
-      if (!isOpen) card.classList.add('is-open');
+      document.querySelectorAll('.srv.is-open').forEach(s => closeSrv(s));
+      if (!isOpen) openSrv(card);
     }
 
     // Open a service card from the hero shortcut cards and scroll to it
     function openService(id) {
       const card = document.getElementById(id);
       if (!card) return;
-      document.querySelectorAll('.srv.is-open').forEach(s => s.classList.remove('is-open'));
-      card.classList.add('is-open');
+      document.querySelectorAll('.srv.is-open').forEach(s => closeSrv(s));
+      openSrv(card);
       card.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 

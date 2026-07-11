@@ -65,6 +65,8 @@
       text-align: center;
       color: #101D38;
     }
+    .section-title__accent { color: #7DE8E2; }
+    .section-title__accent--blue { color: var(--blue); }
     p.section-lead {
       font-size: .98rem;
       color: var(--mid);
@@ -836,165 +838,298 @@
     #equipo .container { position: relative; z-index: 1; }
     #equipo .section-title,
     #equipo .section-lead { color: var(--white); }
-    #equipo .section-lead { opacity: .78; }
+    #equipo .section-title { margin-bottom: 34px; }
+    #equipo .section-lead { opacity: .78; margin-bottom: 38px; }
     #equipo .badge--green { color: var(--white); }
     .team__profile {
       display: grid;
-      grid-template-columns: minmax(280px, .9fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
       gap: 34px;
-      align-items: stretch;
+      align-items: center;
       max-width: 1040px;
       margin: 0 auto;
-      padding: 18px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.08);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12), 0 28px 70px rgba(0,0,0,.22);
-      backdrop-filter: blur(10px);
+    }
+    .team__profile::before {
+      content: '';
+      grid-column: 2;
+      grid-row: 1;
+      width: 1px;
+      align-self: stretch;
+      min-height: 190px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,.34), transparent);
     }
     .team__quote {
+      grid-column: 1;
       position: relative;
-      min-height: 440px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.06);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+      min-height: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 44px 38px;
+      padding: 42px 42px 8px;
+    }
+    .team__quote::before,
+    .team__quote::after {
+      position: absolute;
+      color: #52E7E2;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 5.6rem;
+      font-style: normal;
+      font-weight: 900;
+      line-height: .7;
+      opacity: .96;
+      text-shadow: 0 10px 24px rgba(82, 231, 226, .24);
+      pointer-events: none;
+    }
+    .team__quote::before {
+      content: '“';
+      top: 8px;
+      left: 36px;
+    }
+    .team__quote::after {
+      content: '”';
+      right: 34px;
+      bottom: 58px;
     }
     .team__quote p {
       position: relative;
-      font-size: 1.2rem;
+      max-width: 470px;
+      font-size: 1.16rem;
       font-style: italic;
-      font-weight: 500;
+      font-weight: 800;
       line-height: 1.6;
       color: var(--white);
       text-align: center;
+      margin: 0;
+      padding: 0 20px;
     }
-    .team__quote p::before {
-      content: '“';
-      position: absolute;
-      top: -46px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 4rem;
-      font-style: normal;
-      font-weight: 900;
-      color: #8BD7FF;
-      opacity: .35;
-      line-height: 1;
+    .team__signature::before {
+      content: '';
+      display: block;
+      width: 34px;
+      height: 2px;
+      margin: 0 auto 18px;
+      background: #52E7E2;
+      border-radius: 999px;
     }
-    .team__bio {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 26px 16px 26px 4px;
-    }
-    .team__bio h3 {
-      font-size: clamp(1.65rem, 3vw, 2.3rem);
-      font-weight: 900;
-      line-height: 1.08;
-      margin-bottom: 10px;
-      color: var(--white);
-      text-transform: uppercase;
-    }
-    .team__role {
-      font-size: .86rem;
+    .team__signature {
+      display: block;
+      margin-top: 18px;
+      color: rgba(255,255,255,.82);
+      font-size: .82rem;
       font-weight: 800;
-      color: #9FE5C3;
+      line-height: 1.45;
+      text-align: center;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 22px;
+      letter-spacing: .07em;
     }
-    .team__bio p {
-      font-size: .98rem;
+    .team__signature strong {
+      display: block;
+      color: #9FE5C3;
+      font-size: .9rem;
+    }
+    .team__summary {
+      grid-column: 3;
       color: rgba(255,255,255,.78);
-      line-height: 1.76;
-      margin-bottom: 18px;
     }
-    .team__bio p:last-child { margin-bottom: 0; }
-
+    .team__summary p {
+      font-size: .98rem;
+      line-height: 1.8;
+      margin: 0;
+    }
     /* ── PROCESO ─────────────────────────────────────────────── */
+    #proceso {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(43,95,170,.08), transparent 30%),
+        radial-gradient(circle at 84% 12%, rgba(19,168,200,.08), transparent 28%),
+        linear-gradient(180deg, #FFFFFF 0%, #F7FAFE 100%);
+      overflow: hidden;
+    }
+    #proceso .section-lead {
+      max-width: 680px;
+      margin-bottom: 58px;
+    }
     .steps__grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
       position: relative;
-      padding-top: 18px;
-    }
-    .steps__grid::before {
-      content: '';
-      position: absolute;
-      top: 42px;
-      left: calc(12.5% + 16px);
-      right: calc(12.5% + 16px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--blue) 0%, var(--green) 100%);
-      opacity: .25;
+      align-items: stretch;
+      margin-bottom: 34px;
     }
     .step {
-      text-align: center;
+      --step-accent: #2B5FAA;
+      --step-soft: #EAF2FF;
+      --step-shadow: rgba(43,95,170,.16);
       position: relative;
-      background: linear-gradient(180deg, #F7FBFF 0%, #FFFFFF 74%);
-      border: 1px solid #E7ECF4;
-      border-radius: 6px;
-      padding: 0 20px 24px;
-      box-shadow: 0 8px 26px rgba(16,34,64,.06);
-      overflow: visible;
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 318px;
+      padding: 0 16px 16px;
+      border: 1px solid rgba(220,229,241,.82);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(255,255,255,.98) 100%),
+        radial-gradient(circle at 50% 0%, var(--step-soft), transparent 58%);
+      box-shadow: 0 18px 48px rgba(16,34,64,.07);
+      text-align: center;
+      isolation: isolate;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     }
-    .step::before {
+    .step:not(:last-child)::before {
       content: '';
       position: absolute;
-      inset: 0 0 auto;
-      height: 5px;
-      border-radius: 6px 6px 0 0;
-      background: var(--step-accent, var(--blue));
+      top: 50%;
+      right: -14px;
+      width: 9px;
+      height: 9px;
+      border-top: 2px solid var(--step-accent);
+      border-right: 2px solid var(--step-accent);
+      transform: translateY(-50%) rotate(45deg);
+      z-index: 3;
+      opacity: .82;
     }
     .step:hover {
-      transform: translateY(-5px);
-      border-color: var(--step-soft, #DDE8F6);
-      box-shadow: 0 18px 44px rgba(43,95,170,.13);
-      background: linear-gradient(180deg, var(--step-soft, #EEF4FC) 0%, #FFFFFF 70%);
+      transform: translateY(-7px);
+      border-color: color-mix(in srgb, var(--step-accent) 34%, #E6ECF4);
+      box-shadow: 0 28px 70px var(--step-shadow);
+    }
+    .step__icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      margin: -22px auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--step-accent);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.82), rgba(255,255,255,.48)),
+        var(--step-soft);
+      border: 1px solid rgba(255,255,255,.72);
+      box-shadow: 0 18px 42px var(--step-shadow), inset 0 1px 0 rgba(255,255,255,.84);
+      backdrop-filter: blur(14px);
+      position: relative;
+      z-index: 2;
+      transition: background .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .step:hover .step__icon {
+      color: var(--white);
+      background: var(--step-accent);
+      border-color: rgba(255,255,255,.9);
+      box-shadow: 0 22px 48px var(--step-shadow), inset 0 1px 0 rgba(255,255,255,.22);
+    }
+    .step__icon svg {
+      width: 42px;
+      height: 42px;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
     }
     .step__num {
-      width: 78px; height: 78px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: var(--white);
-      border: 8px solid var(--step-soft, #EEF4FC);
-      color: var(--step-accent, var(--blue));
-      font-size: 1.3rem;
+      background: var(--step-accent);
+      color: var(--white);
+      font-size: .85rem;
       font-weight: 900;
-      display: flex; align-items: center; justify-content: center;
-      margin: -18px auto 18px;
-      box-shadow: 0 8px 22px var(--step-shadow, rgba(43,95,170,.18));
-      position: relative;
-      z-index: 1;
-      transition: background .25s, border-color .25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+      margin-bottom: 10px;
+      box-shadow: 0 10px 24px var(--step-shadow);
     }
-    .step:hover .step__num {
-      background: var(--step-soft, #EEF4FC);
-      border-color: var(--step-accent, var(--blue));
+    .step h4 {
+      font-size: .9rem;
+      font-weight: 900;
+      margin-bottom: 9px;
+      color: #101D38;
+      line-height: 1.22;
+      white-space: nowrap;
+    }
+    .step p {
+      font-size: .73rem;
+      color: #506375;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .step__note {
+      margin-top: auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: var(--step-soft);
+      color: color-mix(in srgb, var(--step-accent) 76%, #152235);
+      font-size: .69rem;
+      font-weight: 800;
+      line-height: 1.25;
     }
     .step:nth-child(1) { --step-accent: #2B5FAA; --step-soft: #EAF2FF; --step-shadow: rgba(43,95,170,.18); }
-    .step:nth-child(2) { --step-accent: #13A8C8; --step-soft: #E8FAFD; --step-shadow: rgba(19,168,200,.18); background: linear-gradient(180deg, #F1FCFF 0%, #FFFFFF 74%); }
-    .step:nth-child(3) { --step-accent: #6D5DD3; --step-soft: #F0EEFF; --step-shadow: rgba(109,93,211,.18); background: linear-gradient(180deg, #F8F7FF 0%, #FFFFFF 74%); }
-    .step:nth-child(4) { --step-accent: var(--green); --step-soft: #EAF8F1; --step-shadow: rgba(76,175,130,.18); background: linear-gradient(180deg, #F2FBF6 0%, #FFFFFF 74%); }
-    .step h4 { font-size: .92rem; font-weight: 700; margin-bottom: 8px; color: #101D38; line-height: 1.25; }
-    .step p  { font-size: .76rem; color: var(--mid); line-height: 1.45; }
-    .step__note {
-      display: inline-block;
-      background: var(--step-soft, rgba(76,175,130,.1));
-      color: var(--step-accent, var(--green-dk));
-      font-size: .73rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 100px;
-      margin-top: 8px;
+    .step:nth-child(2) { --step-accent: #13A8C8; --step-soft: #E8FAFD; --step-shadow: rgba(19,168,200,.18); }
+    .step:nth-child(3) { --step-accent: #6D5DD3; --step-soft: #F0EEFF; --step-shadow: rgba(109,93,211,.18); }
+    .step:nth-child(4) { --step-accent: #3F9C70; --step-soft: #EAF8F1; --step-shadow: rgba(63,156,112,.18); }
+    .step:nth-child(5) { --step-accent: #F29339; --step-soft: #FFF1E4; --step-shadow: rgba(242,147,57,.18); }
+    .process__trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 24px 30px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(7,22,51,.96), rgba(14,47,103,.96));
+      color: var(--white);
+      box-shadow: 0 24px 62px rgba(16,34,64,.16);
+    }
+    .process__trust-icon {
+      flex: 0 0 auto;
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8CF0FF;
+      background: rgba(255,255,255,.1);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+    }
+    .process__trust-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .process__trust strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.35;
+      margin-bottom: 3px;
+    }
+    .process__trust p {
+      font-size: .86rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,.74);
+      margin: 0;
     }
 
     /* ── CASOS DE ÉXITO ──────────────────────────────────────── */
-    #casos { background: #F6F9FD; }
+    #casos {
+      background:
+        radial-gradient(circle at 14% 18%, rgba(43,95,170,.1), transparent 30%),
+        radial-gradient(circle at 86% 18%, rgba(63,156,112,.1), transparent 28%),
+        linear-gradient(180deg, #EEF6FF 0%, #F7FBFF 100%);
+    }
     .cases__shell {
       display: grid;
       grid-template-columns: auto minmax(0, 1fr) auto;
@@ -1421,6 +1556,7 @@
       height: 170px;
       width: auto;
       display: block;
+      filter: brightness(.78) saturate(1.08);
     }
     @keyframes footerLogoFlip {
       0%, 42% { transform: rotateY(0deg); }
@@ -1465,14 +1601,13 @@
       .hero__media { border-radius: 24px; min-height: 0; max-width: 760px; margin-right: 0; overflow: hidden; box-shadow: 0 24px 60px rgba(12,62,119,.18); }
       .hero__media img { min-height: 0; border-radius: 24px; }
       .hero__service-cards { grid-template-columns: repeat(3, 1fr); }
-      .team__profile { grid-template-columns: 1fr; max-width: 760px; gap: 0; }
-      .team__bio { padding: 28px 18px 16px; }
+      .team__profile { max-width: 920px; gap: 28px; }
       .case { flex-basis: calc((100% - 20px) / 2); }
       .services__layout { grid-template-columns: 1fr; }
       .services__image { position: static; height: auto; max-height: 260px; }
       .services__image img { min-height: 260px; }
       .steps__grid { grid-template-columns: repeat(2, 1fr); }
-      .steps__grid::before { display: none; }
+      .step:not(:last-child)::before { display: none; }
       .footer__inner { grid-template-columns: 1fr 1fr; gap: 28px; }
     }
 
@@ -1494,10 +1629,30 @@
       .hero__metrics { grid-template-columns: repeat(2, 1fr); row-gap: 18px; }
       .hero__metric:nth-child(2) { border-right: 0; }
 
-      .team__profile { padding: 14px; }
-      .team__quote { min-height: 320px; }
+      .team__profile {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        max-width: 760px;
+      }
+      .team__profile::before {
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%;
+        min-height: 1px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+      }
+      .team__quote,
+      .team__summary { grid-column: 1; }
+      .team__summary { grid-row: 3; }
+      .team__quote { min-height: 0; }
 
       .steps__grid { grid-template-columns: 1fr 1fr; }
+      .step { min-height: 280px; }
+      .process__trust {
+        align-items: flex-start;
+        padding: 22px 24px;
+      }
 
       .case { flex-basis: 100%; }
       .case { padding: 20px 18px; }
@@ -1531,9 +1686,15 @@
         height: 40px;
         font-size: 1.12rem;
       }
-      .team__quote { min-height: 260px; padding: 32px 24px; }
-      .team__bio { padding: 24px 8px 10px; }
+      .team__quote { min-height: 0; padding: 0 24px; }
+      .team__summary { padding: 0 24px; }
       .steps__grid { grid-template-columns: 1fr; }
+      .step { min-height: 0; }
+      .process__trust {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
       .footer__inner { grid-template-columns: 1fr; }
       .footer__bottom { flex-direction: column; gap: 8px; text-align: center; }
       .hero__stat-grid { grid-template-columns: 1fr 1fr; }
@@ -1735,7 +1896,7 @@
   <section class="section" id="servicios">
     <div class="container">
       <div class="badge">Nuestros servicios</div>
-      <h2 class="section-title">Todo lo que necesitás,<br>en una sola propuesta</h2>
+      <h2 class="section-title">Soluciones integrales para<br><span class="section-title__accent--blue">ordenar y potenciar tu institución</span></h2>
       <p class="section-lead">
         Seis áreas de servicio integradas para cubrir cada aspecto de la gestión
         de tu institución o práctica profesional en el sector salud y discapacidad.
@@ -1881,20 +2042,18 @@
   <section class="section section--light" id="equipo">
     <div class="container">
       <div class="badge badge--green">Nuestro equipo</div>
-      <h2 class="section-title">Profesionales especializados,<br>visión multidisciplinaria</h2>
-      <p class="section-lead">
-        Combinamos la experiencia de profesionales de diversas disciplinas para brindar un asesoramiento integral a instituciones de salud y discapacidad. Nuestro equipo reúne conocimientos en administración, derecho, psicopedagogía, terapia ocupacional, recursos humanos, contabilidad especializada en salud y desarrollo de soluciones digitales.
-      </p>
+      <h2 class="section-title">Todo el conocimiento que tu institución necesita,<br><span class="section-title__accent">en un mismo equipo.</span></h2>
 
       <article class="team__profile" aria-label="Estefanía Benavidez">
         <div class="team__quote">
-          <p>“Cada institución tienen una historia y un propósito. Nuestro compromiso es brindar las herramientas necesarias para que puedan enfocarse en los más importante: las personas”</p>
+          <p>Cada institución tiene una historia y un propósito. Nuestro compromiso es brindar las herramientas necesarias para que puedan enfocarse en lo más importante: las personas.</p>
+          <span class="team__signature">
+            <strong>Estefania Benavidez</strong>
+            Fundadora y Directora de Grupo Soluciona Salud
+          </span>
         </div>
-        <div class="team__bio">
-          <h3>Estefanía Benavidez</h3>
-          <div class="team__role">Fundadora y Directora de Grupo Soluciona Salud</div>
-          <p>Especialista en Gestión Administrativa, Salud y Discapacidad, con más de 15 años de trayectoria acompañando a instituciones de salud, rehabilitación y discapacidad en el fortalecimiento de su organización y sus procesos.</p>
-          <p>Lidera un equipo interdisciplinario de profesionales comprometido con brindar soluciones integrales en administración, auditorías, habilitaciones, categorizaciones, asesoría contable y transformación digital. La combinación de experiencia técnica, actualización permanente y trabajo colaborativo permite desarrollar estrategias eficientes, personalizadas y orientadas a resultados.</p>
+        <div class="team__summary">
+          <p>Somos especialistas en gestión de servicios para la discapacidad. Reunimos un equipo interdisciplinario con amplia experiencia en gestión institucional, administración, normativa, recursos humanos y transformación digital, ofreciendo soluciones integrales para fortalecer la organización, optimizar procesos y mejorar la calidad de las prestaciones.</p>
         </div>
       </article>
     </div>
@@ -1910,34 +2069,98 @@
   <section class="section" id="proceso">
     <div class="container">
       <div class="badge">Cómo trabajamos</div>
-      <h2 class="section-title">Un proceso claro<br>y transparente</h2>
+      <h2 class="section-title">Así es nuestro proceso de trabajo</h2>
       <p class="section-lead">
-        Desde el primer contacto hasta el acompañamiento continuo,
-        cada etapa está diseñada para que confíes en el proceso.
+        Un proceso simple, claro y sin complicaciones para que puedas enfocarte en lo más importante: tu actividad.
       </p>
 
       <div class="steps__grid">
         <div class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <circle cx="13" cy="29" r="4" />
+              <circle cx="35" cy="29" r="4" />
+              <path d="M6 41v-2a7 7 0 0 1 14 0v2M28 41v-2a7 7 0 0 1 14 0v2" />
+              <rect x="17" y="7" width="18" height="12" rx="4" />
+              <path d="M22 19l-4 5M22 13h.01M26 13h.01M30 13h.01" />
+            </svg>
+          </div>
           <div class="step__num">1</div>
-          <h4>Primera reunión virtual</h4>
-          <p>Nos reunimos para conocer tu contexto, necesidades y objetivos. Sin compromiso y sin costo.</p>
+          <h4>Nos conocemos</h4>
+          <p>Coordinamos una reunión para conocer tu situación, necesidades y objetivos.</p>
+          <span class="step__note">Entendemos tu realidad.</span>
         </div>
         <div class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <path d="M12 7h20l5 5v28H12z" />
+              <path d="M32 7v6h5" />
+              <path d="M18 19h13M18 25h10M18 31h7" />
+              <path d="M30 36l8-8 4 4-8 8-5 1z" />
+              <path d="M36 30l4 4" />
+            </svg>
+          </div>
           <div class="step__num">2</div>
-          <h4>Propuesta personalizada</h4>
-          <p>En 48 horas hábiles te enviamos una propuesta detallada y adaptada a tu realidad, con presupuesto incluido.</p>
-          <span class="step__note">En 48 hs hábiles</span>
+          <h4>Diseñamos la solución</h4>
+          <p>En hasta 48 horas hábiles elaboramos una propuesta personalizada, clara y sin sorpresas.</p>
+          <span class="step__note">Propuesta a medida.</span>
         </div>
         <div class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <path d="M28 6c5 2 10 7 12 12L25 33 15 23z" />
+              <circle cx="30" cy="17" r="3" />
+              <path d="M18 30l-6 6M15 23l-7 2 7 5M25 33l-2 7-5-7" />
+              <path d="M14 34l-5 5" />
+            </svg>
+          </div>
           <div class="step__num">3</div>
-          <h4>Inicio formal + confidencialidad</h4>
-          <p>Una vez aprobada la propuesta, firmamos un acuerdo de confidencialidad y comenzamos formalmente.</p>
-          <span class="step__note">Acuerdo de confidencialidad</span>
+          <h4>Ponemos todo en marcha</h4>
+          <p>Una vez aprobada la propuesta comenzamos a trabajar con total confidencialidad y compromiso.</p>
+          <span class="step__note">Inicio rápido y seguro.</span>
         </div>
         <div class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <path d="M10 27v-4a14 14 0 0 1 28 0v4" />
+              <rect x="6" y="27" width="8" height="11" rx="4" />
+              <rect x="34" y="27" width="8" height="11" rx="4" />
+              <path d="M38 37c-2 4-6 6-13 6h-4" />
+            </svg>
+          </div>
           <div class="step__num">4</div>
-          <h4>Seguimiento y soporte continuo</h4>
-          <p>Acompañamos cada etapa del proceso con seguimiento cercano y soporte técnico personalizado.</p>
+          <h4>Te acompañamos</h4>
+          <p>Realizamos el seguimiento permanente del proceso y estamos disponibles cuando nos necesitás.</p>
+          <span class="step__note">Soporte continuo.</span>
+        </div>
+        <div class="step">
+          <div class="step__icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <path d="M8 40h32" />
+              <rect x="12" y="30" width="6" height="10" rx="1.5" />
+              <rect x="22" y="24" width="6" height="16" rx="1.5" />
+              <rect x="32" y="17" width="6" height="23" rx="1.5" />
+              <path d="M11 22l10-7 8 4 10-11" />
+              <path d="M34 8h5v5" />
+            </svg>
+          </div>
+          <div class="step__num">5</div>
+          <h4>Logramos resultados</h4>
+          <p>Optimizamos procesos para que recuperes tiempo, reduzcas preocupaciones y puedas enfocarte en tu actividad.</p>
+          <span class="step__note">Más tiempo para vos.</span>
+        </div>
+      </div>
+
+      <div class="process__trust">
+        <div class="process__trust-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48">
+            <path d="M24 5l15 6v11c0 10-6 17-15 21C15 39 9 32 9 22V11z" />
+            <path d="M17 24l5 5 10-11" />
+          </svg>
+        </div>
+        <div>
+          <strong>Transparencia, compromiso y confianza en cada paso.</strong>
+          <p>Nuestro objetivo es que recuperes tiempo y tranquilidad mientras nosotros nos ocupamos de la gestión.</p>
         </div>
       </div>
     </div>
@@ -1947,7 +2170,7 @@
   <section class="section" id="casos">
     <div class="container">
       <div class="badge">Casos de éxito</div>
-      <h2 class="section-title">Instituciones que ya<br>confían en nosotros</h2>
+      <h2 class="section-title">Instituciones que ya confían en nosotros</h2>
       <p class="section-lead">
         Algunos ejemplos de cómo acompañamos a instituciones del sector
         salud y discapacidad en distintos proyectos.

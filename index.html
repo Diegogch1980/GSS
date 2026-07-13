@@ -152,6 +152,16 @@
       border-radius: 2px;
       transition: .3s;
     }
+    .nav__burger.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav__burger.is-open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .nav__burger.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
     .nav__drawer {
       display: none;
       flex-direction: column;
@@ -917,7 +927,7 @@
       margin-top: 18px;
       color: rgba(255,255,255,.82);
       font-size: .82rem;
-      font-weight: 800;
+      font-weight: 400;
       line-height: 1.45;
       text-align: center;
       text-transform: uppercase;
@@ -927,6 +937,7 @@
       display: block;
       color: #9FE5C3;
       font-size: .9rem;
+      font-weight: 800;
     }
     .team__summary {
       grid-column: 3;
@@ -1686,7 +1697,31 @@
         height: 40px;
         font-size: 1.12rem;
       }
-      .team__quote { min-height: 0; padding: 0 24px; }
+      .team__quote {
+        min-height: 0;
+        padding: 44px 30px 24px;
+      }
+      .team__quote::before {
+        top: 4px;
+        left: 10px;
+      }
+      .team__quote::after {
+        display: none;
+      }
+      .team__quote p::after {
+        content: '”';
+        position: absolute;
+        right: 16px;
+        bottom: -30px;
+        color: #52E7E2;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 4.8rem;
+        font-style: normal;
+        font-weight: 900;
+        line-height: .7;
+        text-shadow: 0 10px 24px rgba(82, 231, 226, .24);
+        pointer-events: none;
+      }
       .team__summary { padding: 0 24px; }
       .steps__grid { grid-template-columns: 1fr; }
       .step { min-height: 0; }
@@ -1724,7 +1759,7 @@
           <li><a href="#contacto">Contacto</a></li>
         </ul>
 
-        <button class="nav__burger" aria-label="Abrir menú" id="burgerBtn">
+        <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDrawer" id="burgerBtn">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -2046,7 +2081,8 @@
           <p>Cada institución tiene una historia y un propósito. Nuestro compromiso es brindar las herramientas necesarias para que puedan enfocarse en lo más importante: las personas.</p>
           <span class="team__signature">
             <strong>Estefania Benavidez</strong>
-            Fundadora y Directora de Grupo Soluciona Salud
+            Fundadora y Directora<br>
+            Grupo Soluciona Salud
           </span>
         </div>
         <div class="team__summary">
@@ -2180,7 +2216,7 @@
         <div class="cases__viewport">
           <div class="cases__grid">
             <div class="case">
-              <div class="case__icon">🌐</div>
+              <div class="case__icon" aria-label="Presencia digital">💻</div>
               <div class="case__body">
                 <h3>Centro Crear</h3>
                 <p>Modernizamos su presencia digital para transmitir confianza y captar más consultas.</p>
@@ -2188,7 +2224,7 @@
               </div>
             </div>
             <div class="case">
-              <div class="case__icon">🗂️</div>
+              <div class="case__icon" aria-label="Categorización institucional">🏛️</div>
               <div class="case__body">
                 <h3>Fundación ABBA</h3>
                 <p>La acompañamos en el proceso de categorización para fortalecer su crecimiento institucional.</p>
@@ -2196,14 +2232,14 @@
                   type="button"
                   class="case__link case__expand"
                   onclick="openCaseModal(this)"
-                  data-quote="El acompañamiento de Grupo Soluciona Salud nos permitió ordenar la documentación, mejorar los circuitos administrativos y avanzar con mayor claridad en cada etapa del proceso."
-                  data-name="Pepita Gómez"
-                  data-role="Directora, Fundación ABBA"
+                  data-quote="Desde Fundación ABBA destacamos el acompañamiento de Grupo Soluciona Salud en nuestro proceso de categorización. Luego de varios intentos previos sin resultados, su seguimiento constante, compromiso y capacidad para encontrar soluciones marcaron la diferencia. Gracias a su trabajo, logramos concretar la categorización de manera ordenada y efectiva."
+                  data-name="Cecilia Días Britez"
+                  data-role="Representante Legal, Fundación ABBA"
                 >+ Ver testimonio</button>
               </div>
             </div>
             <div class="case">
-              <div class="case__icon">🧾</div>
+              <div class="case__icon" aria-label="Recuperación de tiempo">⏱️</div>
               <div class="case__body">
                 <h3>Profesional independiente</h3>
                 <p>Recuperó tiempo personal al delegar la gestión administrativa y la facturación.</p>
@@ -2218,10 +2254,18 @@
               </div>
             </div>
             <div class="case">
-              <div class="case__icon">📋</div>
+              <div class="case__icon" aria-label="Gestión de facturación">🧾</div>
               <div class="case__body">
                 <h3>Profesional de salud</h3>
                 <p>Gestionamos la facturación de sus prestaciones, revisión de liquidaciones y organización de circuitos administrativos para reducir demoras y mejorar el control de cobros.</p>
+                <button
+                  type="button"
+                  class="case__link case__expand"
+                  onclick="openCaseModal(this)"
+                  data-quote="Como psicólogo, necesitaba un equipo que se ocupara de la facturación con responsabilidad. En Grupo Soluciona Salud encontré profesionalismo, cercanía y la tranquilidad de saber que todo está en buenas manos."
+                  data-name="Agustin Laganá"
+                  data-role="Psicólogo"
+                >+ Ver testimonio</button>
               </div>
             </div>
           </div>
@@ -2536,8 +2580,30 @@
     // Mobile nav
     const burgerBtn = document.getElementById('burgerBtn');
     const navDrawer = document.getElementById('navDrawer');
-    burgerBtn.addEventListener('click', () => navDrawer.classList.toggle('is-open'));
-    function closeNav() { navDrawer.classList.remove('is-open'); }
+    const mainNav = burgerBtn.closest('.nav');
+
+    function setNavState(isOpen) {
+      navDrawer.classList.toggle('is-open', isOpen);
+      burgerBtn.classList.toggle('is-open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      burgerBtn.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+    }
+
+    burgerBtn.addEventListener('click', () => {
+      setNavState(!navDrawer.classList.contains('is-open'));
+    });
+
+    function closeNav() { setNavState(false); }
+
+    document.addEventListener('click', (event) => {
+      if (navDrawer.classList.contains('is-open') && !mainNav.contains(event.target)) {
+        closeNav();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeNav();
+    });
 
     // Keep services image aligned with the closed accordion list.
     function setServicesImageHeight() {
